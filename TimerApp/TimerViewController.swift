@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import AVFoundation
 
 class TimerViewController: UIViewController {
     
     var timeout : Int?
     var currentTime = 0
     var timer: Timer?
+    var bombSoundEffect: AVAudioPlayer?
     
     @IBOutlet weak var timeOutLabel: UILabel!
     @IBOutlet weak var timeOutProgressView: UIProgressView!
@@ -41,6 +43,8 @@ class TimerViewController: UIViewController {
         
         if currentTime >= timeout {
             timer?.invalidate()
+            UIDevice.vibrate()
+            playSound()
             timer = nil
         }
         
@@ -85,5 +89,21 @@ class TimerViewController: UIViewController {
         return Float(currentTime) / Float(timeout)
     }
     
+    private func playSound(){
+        let audioPath = Bundle.main.path(forResource: "sound1", ofType: "mp3")!
+        let url = URL(fileURLWithPath: audioPath)
+        do {
+            bombSoundEffect = try AVAudioPlayer(contentsOf: url)
+            bombSoundEffect?.play()
+        } catch{
+            print("Error")
+        }
+    }
     
+}
+
+extension UIDevice {
+    static func vibrate() {
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+    }
 }
