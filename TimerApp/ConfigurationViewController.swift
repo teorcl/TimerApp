@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class ConfigurationViewController: UIViewController {
     
     private struct Const {
@@ -18,6 +19,8 @@ class ConfigurationViewController: UIViewController {
     }
     
     @IBOutlet weak var timeOutTextField: UITextField!
+    
+    //private let brain: ConfigurationBrainProtocol = ConfigurationBrain()
     
     @IBAction func onContinueButtonPressed() {
         sendSeconds()
@@ -58,3 +61,4 @@ class ConfigurationViewController: UIViewController {
     }
     
 }
+
